@@ -1,0 +1,60 @@
+.text-404 {
+  font-size: 150px;
+  /* font-weight: 600; */
+}
+.paragraph-404 {
+  font-weight: 600;
+  font-size: 20px;
+}
+.button-404 {
+  border-radius: 0;
+  border-color: #212529;
+  color: white;
+  background-image: linear-gradient(to top, #eff2f5 50%, transparent 50%);
+  background-size: 100% 200%;
+  transition: background-position 0.7s;
+}
+.button-404:hover {
+  background-color: white;
+  color: black;
+  font-weight: 600;
+  border-color: white;
+  background-position: 0 100%;
+  transition: 0.3s;
+}
+
+@keyframes slideInFromTop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.text-404,
+.paragraph-404,
+.button-404 {
+  animation: 0.5s ease-out 0s 1 slideInFromTop;
+}
+.page-404-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to right, #0018c14d 50%, #000000 50%);
+  color: #000000;
+}
+.content-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.content-container .text-404 {
+  color: #ffffff;
+}
+.content-container .paragraph-404 {
+  color: #ffffff;
+}

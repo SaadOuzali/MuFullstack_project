@@ -35,9 +35,13 @@ export default function Header3() {
   const [categorie, setCategorie] = useState([]);
   const [isopen, setIsopen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(false);
-  const {anchorEl,
-    setAnchorEl,
-    open }=useContext(Shoppigncartcontexte)
+  const shopCtx = useContext(Shoppigncartcontexte);
+
+  if (!shopCtx) throw new Error("Shop context not available");
+  console.log(shopCtx);
+
+  const { anchorEl, setAnchorEl, open } = shopCtx;
+
   const handleMouseEnter = () => {
     setDropdownVisible(true);
   };
@@ -47,8 +51,6 @@ export default function Header3() {
   };
   // console.log("dial state", categorie);
   const theme = useTheme();
-  // const [anchorEl, setAnchorEl] = useState(null);
-  // const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -80,8 +82,6 @@ export default function Header3() {
           justifyContent: "space-between",
         }}
       >
-       
-
         <Button
           id="basic-button"
           aria-controls={open ? "basic-menu" : undefined}
@@ -112,7 +112,6 @@ export default function Header3() {
           MenuListProps={{
             "aria-labelledby": "basic-button",
           }}
-          
           sx={{
             ".MuiPaper-root": {
               width: 250,

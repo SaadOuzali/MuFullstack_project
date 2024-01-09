@@ -240,15 +240,17 @@ customerRouter.post(
   (req, res, next) => {
     let newaccToken = req.token;
     let data = req.payload;
-    let userdata={id: data.id,
+    let userdata = {
+      id: data.id,
       _id: data._id,
       first_name: data.first_name,
       last_name: data.last_name,
-      user_name: data.user_name,}
+      user_name: data.user_name,
+    };
     // console.log("hna data", newaccToken);
     res.status(200).json({
       status: 200,
-      data:userdata
+      data: userdata,
     });
   }
 );

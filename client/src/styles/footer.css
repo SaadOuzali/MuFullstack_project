@@ -1,0 +1,33 @@
+.footer {
+  background-color: #f8f9fa;
+  padding: 20px 0;
+}
+.footer .footer-content {
+  text-align: center;
+}
+.footer .footer-content a {
+  color: #007bff;
+  text-decoration: none;
+}
+.footer .footer-content a:hover {
+  text-decoration: underline;
+}
+.footer-divider {
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+.social-icons {
+  margin: 10px 0;
+}
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.copyright {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.875em;
+  color: #6c757d;
+}

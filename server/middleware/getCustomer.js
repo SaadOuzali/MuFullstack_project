@@ -25,8 +25,8 @@ async function getCustomerById(req, res, next) {
   const customer = await Customer.find({ id: customerId });
   if (!customer.length) {
     const err = new Error("Customer not found");
-      err.status=404;
-      next(err)
+    err.status = 404;
+    next(err);
     return;
   }
   req.customer = customer;

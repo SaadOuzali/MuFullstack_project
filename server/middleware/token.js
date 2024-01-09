@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
+require("dotenv").config();
 const Customer = require("../models/Customer");
-
-
 
 // generate token
 function generateJWT(req, res, next) {
@@ -19,39 +18,35 @@ function generateJWT(req, res, next) {
   next();
 }
 
-
-
 // verify jwt
 async function verifyJWT(req, res, next) {
   const secret_key_jwt = process.env.JWT_SECRET;
   const accessToken = req.cookies.accessToken;
   if (!accessToken) {
-    const error=new Error('missing cookies');
-    error.status=404;
+    const error = new Error("missing cookies");
+    error.status = 404;
     next(error);
-    return ;
+    return;
   }
   try {
     // Verify and decode the JWT token
-    console.log('hna 1');
+    console.log("hna 1");
     const decodedToken = jwt.verify(accessToken, secret_key_jwt);
-    const {_id}=decodedToken;
-    const findcustomer=await Customer.findOne({_id});
-      if(!findcustomer){
-        const error=new Error('you not a customer !');
-        error.status=404;
-        next(error);
-        return ;
-      }
+    const { _id } = decodedToken;
+    const findcustomer = await Customer.findOne({ _id });
+    if (!findcustomer) {
+      const error = new Error("you not a customer !");
+      error.status = 404;
+      next(error);
+      return;
+    }
     req.payload = findcustomer;
     next();
   } catch (error) {
-    req.payload=null;
-    next()
+    req.payload = null;
+    next();
   }
 }
-
-
 
 // generate refrech token
 function generateRefreshToken(req, res, next) {
@@ -65,42 +60,39 @@ function generateRefreshToken(req, res, next) {
       expiresIn,
     }
   );
+  console.log("Refresh token", refreshToken);
   req.ref = refreshToken;
   next();
 }
 
-
-
 // verify refresh token
 async function verifyRefreshToken(req, res, next) {
-  if(!req.payload){
- const refreshToken=req.cookies.refreshToken
-  try {
-    const decodedRefreshToken = jwt.verify(
-      refreshToken,
-      process.env.JWT_REFRESH_SECRET
-    );
-   const {_id}=decodedRefreshToken;
-      const findcustomer=await Customer.findOne({_id});
-      if(!findcustomer){
-        const err=new Error('you not a customer !!! ');
-        err.status=404;
+  if (!req.payload) {
+    const refreshToken = req.cookies.refreshToken;
+    try {
+      const decodedRefreshToken = jwt.verify(
+        refreshToken,
+        process.env.JWT_REFRESH_SECRET
+      );
+      const { _id } = decodedRefreshToken;
+      const findcustomer = await Customer.findOne({ _id });
+      if (!findcustomer) {
+        const err = new Error("you not a customer !!! ");
+        err.status = 404;
         next(err);
         return;
       }
-      req.payload=findcustomer;
-      next()
-  } catch (error) {
-    const err=new Error('invalid token');
-    err.status=403;
-    next(err)
+      req.payload = findcustomer;
+      next();
+    } catch (error) {
+      const err = new Error("invalid token");
+      err.status = 403;
+      next(err);
+    }
+  } else {
+    next();
   }
-}else{
-  next()
 }
-}
-
-
 
 // generate token email
 function generateTokenEmail(req, res, next) {
@@ -114,19 +106,16 @@ function generateTokenEmail(req, res, next) {
   next();
 }
 
-
-
 // verify is a custumor or not
-function noRole(req,res,next){
-if(req.payload.role){
-  next();
-  return;
+function noRole(req, res, next) {
+  if (req.payload.role) {
+    next();
+    return;
+  }
+  const error = new Error("unauthorized you not customer");
+  error.status = 403;
+  next(error);
 }
-const error=new Error('unauthorized you not customer');
-error.status=403;
-next(error)
-}
-
 
 module.exports = {
   generateJWT,
@@ -134,5 +123,5 @@ module.exports = {
   generateRefreshToken,
   verifyRefreshToken,
   generateTokenEmail,
-  noRole
+  noRole,
 };

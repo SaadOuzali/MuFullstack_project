@@ -24,25 +24,26 @@ async function updateCustomer(req, res, next) {
 
 async function updateDataCustomer(req, res, next) {
   try {
-    console.log('hna 3');
+    console.log("hna 3");
     const customerId = req.payload._id;
     const customerData = req.body;
     const customer = await Customer.findOneAndUpdate(
       { _id: customerId },
-      customerData,{new :true}
+      customerData,
+      { new: true }
     );
     if (!customer) {
       const error = new Error("Customer not found");
-      error.status=404;
-      next(error)
+      error.status = 404;
+      next(error);
       return;
     }
     req.customer = customer;
     next();
   } catch (err) {
-    const error=new Error(err.message);
-    error.status=500;
-    next(error)
+    const error = new Error(err.message);
+    error.status = 500;
+    next(error);
   }
 }
 

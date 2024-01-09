@@ -15,29 +15,21 @@ import Navbar from "./components/user/Navbar";
 import Home from "./components/user/Home";
 import User from "./components/users/User";
 
-
 import Barchart from "./statistics/Barchart";
 import PieChart from "./statistics/PieChart";
 import Orders from "./orders/Orders";
 import SingleOrder from "./orders/SingleOrder";
 import App_Front from "./Stor_Front/App_Front";
 import Registre from "./Stor_Front/componenet/Register";
-import Drawer from "./Stor_Front/componenet/Drawers";
 import CartShoppingprovider from "./Stor_Front/componenet/contexte/CartShoppingContexte";
-// import PrentOfStoreFront from './Stor_Front/componenet/PrentOfStoreFront'
-import Test from "./Stor_Front/componenet/contexte/test";
 import Parent from "./Stor_Front/componenet/Parent";
 import { ColorModeContext, useMode } from "./Stor_Front/them";
-import Section from "./Stor_Front/componenet/Section";
 import Child from "./Stor_Front/componenet/Child";
-import IconSection from "./Stor_Front/componenet/IconSection";
 import ProductList from "./components/productcomponent/ProductList";
 import CategoryTemplate from "./Stor_Front/componenet/CategoryTemplate";
 // import "bootstrap/dist/css/bootstrap.css";
 import SubCategoryTemplate from "./Stor_Front/componenet/SubCategoryTemplate";
 import Categorie from "./Stor_Front/componenet/Categorie";
-import TT from "./Stor_Front/componenet/TT";
-import ModalUserDetails from "./components/users/ModalUserDetails";
 import Subcategory from "./components/Subcategory/Subcategory";
 import CreateNewSubcategory from "./components/Subcategory/CreateNewSubcategory";
 import Payment from "./Stor_Front/componenet/Payment";
@@ -47,6 +39,11 @@ import SignupTemplate from "./Stor_Front/componenet/customer/SignupTemplate";
 import CustomerInfosTemplate from "./Stor_Front/componenet/customer/CustomerInfosTemplate";
 import VerifyEmail from "./Stor_Front/componenet/customer/VerifyEmail";
 import PrivateRouteCustomer from "./Stor_Front/componenet/customer/PrivateRouteCustomer";
+import UserInfosTemplate from "./components/UserInfosTemplate";
+import UserFavoritesTemplate from "./components/UserFavoritesTemplate";
+import UserOrdersTemplate from "./components/UserOrdersTemplate";
+import Loading from "./components/Loading";
+import PageNotFound from "./components/NotFoundPage";
 
 // import Home from './components/Home'
 function App() {
@@ -85,7 +82,10 @@ function App() {
 
                 <Route path="/" element={<Home />} />
                 <Route path="users" element={<User />} />
-                <Route path="create/subcategory" element={<CreateNewSubcategory />}  />
+                <Route
+                  path="create/subcategory"
+                  element={<CreateNewSubcategory />}
+                />
                 <Route path="subcategory" element={<Subcategory />} />
                 <Route path="orders" element={<Orders />} />
                 <Route path="singleorder/:id" element={<SingleOrder />} />
@@ -106,22 +106,37 @@ function App() {
               {/* <Route path="/drawer" element={<Drawer />} /> */}
               {/* <Route path="/payment" element={<Payment/>} /> */}
               <Route path="/home" element={<Parent />}>
-                <Route path="customer"  element={<PrivateRouteCustomer />} >
-                    <Route path="profile" element={<CustomerInfosTemplate />} />
-                    <Route path="payment" element={<Payment/>} />
+                <Route path="customer" element={<PrivateRouteCustomer />}>
+                  <Route path="profile" element={<UserInfosTemplate />} />
+                  <Route path="payment" element={<Payment />} />
                 </Route>
                 <Route index element={<Child />} />
                 <Route path="login" element={<LoginTemplate />} />
-                
+
                 <Route path="validate_account" element={<VerifyEmail />} />
                 <Route path="signup" element={<SignupTemplate />} />
                 {/* <Route path="payment" element={<Payment/>} /> */}
                 <Route path=":slug" element={<Categorie />}>
-                  <Route index element={ <CategoryTemplate />} />
-                  <Route path=":single" element={<ProductTemplate />}  />
-                  <Route path=":Slug/products" element={<SubCategoryTemplate />} />
+                  <Route index element={<CategoryTemplate />} />
+                  <Route path=":single" element={<ProductTemplate />} />
+                  <Route
+                    path=":Slug/products"
+                    element={<SubCategoryTemplate />}
+                  />
                 </Route>
-              </Route>             
+
+                <Route
+                  path="profile/information"
+                  element={<UserInfosTemplate />}
+                />
+                <Route
+                  path="profile/favorites"
+                  element={<UserFavoritesTemplate />}
+                />
+                <Route path="profile/orders" element={<UserOrdersTemplate />} />
+                <Route path="loading" element={<Loading />} />
+                <Route path="pagenotfound" element={<PageNotFound />} />
+              </Route>
             </Routes>
           </BrowserRouter>
         </CartShoppingprovider>

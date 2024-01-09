@@ -1,0 +1,56 @@
+.product-heading {
+  color: #101418;
+  font-size: 32px;
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 700;
+  margin-top: 50px;
+}
+
+.data-grid-container {
+  height: 400px;
+  width: 100%;
+  margin-top: 16px;
+}
+body {
+  margin: 0;
+  /* background-color: #f5d7db8a; */
+  background-color: #dae2ed !important;
+  /* font-family: "Barlow", sans-serif;
+  font-family: "Cantarell", sans-serif;*/
+  font-family: "Montserrat", sans-serif !important;
+  /* font-family: "PT Sans Caption", sans-serif; */
+  /* font-family: "Quicksand", sans-serif;
+  font-family: "Sriracha", cursive; */
+}
+.buttons {
+  border: none;
+  background-color: #f5d7db00;
+  cursor: pointer;
+}
+.buttonDelete > svg {
+  color: #e53935;
+}
+.buttonEdit > svg {
+  color: #2074cd;
+}
+.search {
+  background-color: white !important;
+}
+.search:hover {
+  /* border: 1.5px solid #473e66; */
+  background-color: #1413140f !important;
+}
+
+.search:focus {
+  border: 1.5px solid #473e66 !important;
+  background-color: #1413140f !important;
+}
+.search:active {
+  border: 1.5px black solid !important;
+  background-color: #1413140f !important;
+}
+
+.css-1kcggdq-MuiInputBase-root {
+  width: 100%;
+}

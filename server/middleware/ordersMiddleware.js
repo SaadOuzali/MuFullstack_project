@@ -43,6 +43,31 @@ async function createOrder(req, res, next) {
     next(error);
   }
 }
+//NEW
+async function getCustomerOrders(req, res, next) {
+  try {
+    // console.log(req.customer);
+    const customerId = req.customer._id;
+    // console.log(customerId);
+    const orders = await Order.find({ customer_id: customerId });
+    if (!orders || orders.length === 0) {
+      const err = new Error("no orders found");
+      res.status(404).json({
+        status: 404,
+        message: "No orders found for this customer.",
+      });
+      return;
+    }
+    res.status(200).json({
+      status: 200,
+      message: "orders found",
+      data: orders,
+    });
+  } catch (err) {
+    console.error("ERROR UGH: ", err);
+    res.status(500).json({ message: "SERVER ERROR UGH" });
+  }
+}
 
 async function getOrderById(req, res, next) {
   console.log(req.payload);
@@ -72,7 +97,6 @@ async function getOrderById(req, res, next) {
 
 async function listOrders(req, res, next) {
   try {
-    // http://localhost:0000/v1/orders?page=1
     const page = Number(req.query.page) || 1;
     const orders = await Order.find({})
       .populate("customer_id", "first_name last_name")
@@ -120,4 +144,10 @@ async function updateOrder(req, res, next) {
   }
 }
 
-module.exports = { createOrder, getOrderById, listOrders, updateOrder };
+module.exports = {
+  createOrder,
+  getOrderById,
+  listOrders,
+  updateOrder,
+  getCustomerOrders,
+};

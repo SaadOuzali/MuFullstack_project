@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Customercontexte } from "../Parent";
 import { Outlet, useNavigate } from "react-router-dom";
 import request from "../../../components/axios";
@@ -35,8 +35,10 @@ export default function PrivateRouteCustomer() {
     };
     verifyToken();
   }, []);
-  
-  return !customer.iscustConnected ? "" : (
+
+  return !customer.iscustConnected ? (
+    ""
+  ) : (
     <>
       <Outlet />
     </>

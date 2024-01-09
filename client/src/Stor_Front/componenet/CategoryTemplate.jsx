@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from "react";
 import SofaImage from "./sofa_1.png";
 // import TableImage from "./table_2.png";
 // import WallArtImage from "./wall_art.png";
-import './categories_styles.css'
+import "./categories_styles.css";
 import axios from "axios";
 import request from "../../components/axios";
 import { Link, Outlet, useParams } from "react-router-dom";
@@ -12,17 +12,14 @@ import { categorieContexte } from "./Categorie";
 
 const CategoryTemplate = () => {
   // const [categories, setCategories] = useState({});
-  const {slug}=useParams()
-  const {categorie,products}=useContext(categorieContexte)
-console.log("dila category",categorie);
-console.log("dila products",products);
+  const { slug } = useParams();
+  const { categorie, products } = useContext(categorieContexte);
+  console.log("dila category", categorie);
+  console.log("dila products", products);
 
-  
   // useEffect(() => {
   //   console.log("Slug Rendering");
   // }, [])
-  
-
 
   // useEffect(() => {
   //   const fetchCategories = async () => {
@@ -31,9 +28,9 @@ console.log("dila products",products);
   //         `/v1/categories/${slug}`
   //       );
   //       // console.log("dial data",data);
-  //       if(data.status === 200){  
+  //       if(data.status === 200){
   //       let responseData = data.data;
-       
+
   //       setCategories(responseData.data );
   //     }
   //     } catch (error) {
@@ -62,9 +59,7 @@ console.log("dila products",products);
   return (
     <>
       <div className="text-center" style={{ height: "100vh" }}>
-        
         <div className="row" style={{ height: "100%" }}>
-
           {categorie?.subcategorie?.map((category, index) => (
             <div
               key={index}
@@ -81,13 +76,15 @@ console.log("dila products",products);
                   </h1>
                 </div>
                 <div>
-                  <h3 className="fw-bold m-0"></h3>
+                  <h3 className="fw-bold m-0">{category.subcategory_name}</h3>
                 </div>
                 <div>
-                  <p>{category.subcategory_name} </p>
+                  <p>wanna view products of {category.subcategory_name}? </p>
                 </div>
                 <div className="mt-4">
-                  <Link to={`/home/${categorie.categorie.slug}/${category.slug}/products`} >
+                  <Link
+                    to={`/home/${categorie.categorie.slug}/${category.slug}/products`}
+                  >
                     <button
                       // style={style_button}
                       type="button"

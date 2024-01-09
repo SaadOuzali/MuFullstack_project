@@ -1,17 +1,12 @@
 import {
   Box,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   Container,
   Rating,
   Stack,
   Typography,
 } from "@mui/material";
-import React, { useContext, useEffect, useState } from "react";
-import img2 from "../../../images/img.jpg";
+import { useContext, useEffect, useState } from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import formatCurrency from "../../formatCurrency";
 import { Shoppigncartcontexte } from "../contexte/CartShoppingContexte";
@@ -24,20 +19,22 @@ import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "./styleSwiper.css";
 
-export default function ({ theme }) {
+export default function Section({ theme }) {
   const [swiperRef, setSwiperRef] = useState(null);
   let appendNumber = 4;
   let prependNumber = 1;
   const [data, setData] = useState([]);
   const [value, setValue] = useState(4);
+  const shopCtx = useContext(Shoppigncartcontexte);
+
+  if (!shopCtx) throw new Error("Shop context is required");
+
   const {
-    cartItems,
-    setCartItems,
     getCartItemsQuantity,
     increaseProductToCart,
     decreaseItemInCart,
     removeItemInCart,
-  } = useContext(Shoppigncartcontexte);
+  } = shopCtx;
 
   const prepend2 = () => {
     swiperRef.prependSlide([
@@ -218,11 +215,11 @@ export default function ({ theme }) {
             modules={[Pagination, Navigation]}
             className="mySwiper"
           >
-            {data.map((item, index) => {
+            {data.map((item) => {
               return (
-                <SwiperSlide>
-                  <Stack  >
-                    <img src={item.product_img}  />
+                <SwiperSlide key={item.id}>
+                  <Stack width={"100%"}>
+                    <img src={item.product_img} />
                     <Stack
                       // width={"100%"}
                       alignItems={"center"}

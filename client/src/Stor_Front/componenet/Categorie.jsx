@@ -11,13 +11,14 @@ export default function Categorie() {
   const [products, setProducts] = useState([]);
   const { slug } = useParams();
   const { Slug } = useParams();
-  const {setAnchorEl} = useContext(Shoppigncartcontexte);
-  const loc = useLocation();
-  console.log("hnaaaaaaaa fcategorie",categorie);
+  const { setAnchorEl } = useContext(Shoppigncartcontexte);
 
-// to fetch subcategorie
+  const loc = useLocation();
+  console.log("hnaaaaaaaa fcategorie", categorie);
+
+  // to fetch subcategorie
   useEffect(() => {
-    setAnchorEl(null);
+    if (setAnchorEl) setAnchorEl(null);
     const fetchCategories = async () => {
       try {
         const data = await request.get(`/v1/categories/${slug}`);
@@ -35,8 +36,7 @@ export default function Categorie() {
     fetchCategories();
   }, [slug]);
 
-
-// to fetch all products
+  // to fetch all products
   useEffect(() => {
     if (loc.pathname.endsWith("/products")) {
       console.log("slug", Slug);
@@ -46,7 +46,7 @@ export default function Categorie() {
           const data = await request.get(`/v1/products/${Slug}`);
           if (data.status === 200) {
             console.log("hna fdila product", data.data);
-            setProducts(data.data.data)
+            setProducts(data.data.data);
           }
         } catch (error) {
           console.log("hnnna fl error", error);
@@ -57,7 +57,7 @@ export default function Categorie() {
   }, [loc.pathname]);
 
   return (
-    <categorieContexte.Provider value={{ categorie,products }}>
+    <categorieContexte.Provider value={{ categorie, products }}>
       <div className="style_category_header">
         <h1 className="p-5">{categorie?.categorie?.category_name}</h1>
       </div>

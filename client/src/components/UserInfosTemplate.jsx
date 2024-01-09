@@ -1,36 +1,35 @@
-import { useContext, useEffect, useState } from "react";
-import "./profile_style.css";
+import { useEffect, useState } from "react";
+import "../styles/profile_style.css";
 // import axios from "axios";
-
+// import { mainAxiosInstance } from "../config/api";
 import { toast } from "react-toastify";
-import request from "../../../components/axios";
-import { Customercontexte } from "../Parent";
+import request from "./axios";
 
-const CustomerInfosTemplate = () => {
-  const { customer, setCustomer } = useContext(Customercontexte);
-  // const [customer, setCustomer] = useState({});
+const UserInfosTemplate = () => {
+  const [customer, setCustomer] = useState({});
   const [inputData, setInputData] = useState({
     first_name: "",
     last_name: "",
     email: "",
     password: "",
   });
-  console.log(customer);
-  // useEffect(() => {
-  //   const fetchCustomer = async () => {
-  //     try {
-  //       const response = await request.get("/v1/customers/profile");
-  //       console.log("hello! ", response);
-  //       const responseData = response.data.data[0];
-  //       console.log("Fetched customer: ", responseData);
-  //       setCustomer(responseData);
-  //       setInputData({ ...responseData });
-  //     } catch (error) {
-  //       console.error("ERROR UGH fetching Customer data: ", error.message);
-  //     }
-  //   };
-  //   fetchCustomer();
-  // }, []);
+
+  useEffect(() => {
+    console.log("hello! ");
+    const fetchCustomer = async () => {
+      try {
+        const response = await request.get("/v1/customers/profile"); //mainAxiosInstance
+        console.log("hello! ", response);
+        const responseData = response.data.data[0];
+        console.log("Fetched customer: ", responseData);
+        setCustomer(responseData);
+        setInputData({ ...responseData });
+      } catch (error) {
+        console.error("ERROR UGH fetching Customer data: ", error.message);
+      }
+    };
+    fetchCustomer();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -149,4 +148,4 @@ const CustomerInfosTemplate = () => {
     </>
   );
 };
-export default CustomerInfosTemplate;
+export default UserInfosTemplate;
