@@ -69,6 +69,7 @@ export default function ({ theme }) {
     const fetchproducts = async () => {
       try {
         const data = await request.get("/v1/products/");
+        console.log(data.data.data);
         if (data.status === 200) {
           setData(data.data.data);
         }
@@ -220,8 +221,8 @@ export default function ({ theme }) {
             {data.map((item, index) => {
               return (
                 <SwiperSlide>
-                  <Stack width={"100%"}>
-                    <img src={item.product_img} />
+                  <Stack  >
+                    <img src={item.product_img}  />
                     <Stack
                       // width={"100%"}
                       alignItems={"center"}
@@ -264,7 +265,8 @@ export default function ({ theme }) {
                               item.id,
                               item.product_img,
                               item.price,
-                              item.product_name
+                              item.product_name,
+                              item._id
                             )
                           }
                           startIcon={<AddShoppingCartIcon fontSize="small" />}
@@ -282,7 +284,8 @@ export default function ({ theme }) {
                                   item.id,
                                   item.product_img,
                                   item.price,
-                                  item.product_name
+                                  item.product_name,
+                                  item._id
                                 )
                               }
                             >

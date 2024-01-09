@@ -42,9 +42,10 @@ async (req,res,next)=>{
       currency:'usd',
       customer:customer.id,
       receipt_email:token.email
-    },{idempotencyKey})   
+    },{idempotencyKey});
 
-    res.status(200).send({message: "Good", result});
+    next()
+    // res.status(200).send({message: "Good", result});
   } catch (error) {
     const err=new Error(error.message);
     err.status=500

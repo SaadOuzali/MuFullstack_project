@@ -8,15 +8,15 @@ import { AxiosError } from "axios";
 
 export default function Payment() {
   const { cartItems, TotalPrice, initialState, setCartItems } =
-    useContext(Shoppigncartcontexte);  
-
+    useContext(Shoppigncartcontexte);
+  
   const productid = useMemo(() => {
     return cartItems.map((prd) => {
-      return prd.id;
+      return { product_id: prd.id,quantity:prd.quantity };
     });
   }, [cartItems]);
-
-  const handletocken = async (totalAmount, token) => {
+  console.log("payement", productid);
+  const handletocken = async (token) => {
     try {
       const data = await request.post("/v1/orders/", {
         token: token.id,
@@ -26,7 +26,7 @@ export default function Payment() {
       console.log(data);
       if (data.status === 200) {
         localStorage.removeItem("cartshopping");
-        setCartItems(initialState())
+        setCartItems(initialState());
         toast.success("order created successfully");
       }
     } catch (error) {
@@ -37,7 +37,6 @@ export default function Payment() {
           );
         }
       }
-      // console.log(error);
     }
   };
   const tokenhandler = (token) => {

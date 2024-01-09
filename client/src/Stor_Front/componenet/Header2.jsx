@@ -106,7 +106,7 @@ export default function Header2() {
   let numberofproducts = cartItems.length;
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
-
+console.log('header 2',cartItems);
   const handleClickListItem = (event) => {
     setAnchorEl(event.currentTarget);
   };

@@ -20,7 +20,7 @@ async function createOrder(req, res, next) {
       });
     }
     const { order_items, cart_total_price } = req.body;
-    const createOrder = await  Order.create({
+    const createOrder = await Order.create({
       id: uuidv4(),
       customer_id: req.payload._id,
       order_items,
