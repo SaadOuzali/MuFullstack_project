@@ -50,6 +50,9 @@ function App() {
   const [theme, colorMode] = useMode();
 
   const [userdata, setUserdata] = useState({ Data: null, isConnected: false });
+console.log("hna flappp");
+console.log("hna flappp",userdata);
+console.log("hna flappp",);
 
   return (
     <usercontext.Provider value={{ userdata, setUserdata }}>
@@ -57,6 +60,7 @@ function App() {
         <CartShoppingprovider>
           <BrowserRouter>
             <Routes>
+              {/* <--- User Routes */}
               <Route element={<PrivateRoute />}>
                 {/* 
               Outlet = My Nested Route
@@ -94,13 +98,17 @@ function App() {
                 <Route path="piechart" element={<PieChart />} />
                 <Route path="product/edit" element={<EditProduct />} />
               </Route>
+
               {/* <Route path='/dasboard' element={<Dashboard/>} /> */}
               <Route path="/users/login" element={<AdminLogin />} />
               {/* <Route path='/pagination' element={<Pagination/>} /> */}
               <Route path="/pagination" element={<Pagination />}>
                 <Route path="add" element={<AddProduct />} />
               </Route>
+              {/* </--- User Routes */}
 
+
+              {/* <--- Customer Routes */}
               <Route path="/landing_page" element={<App_Front />} />
               <Route path="/registre" element={<Registre />} />
               {/* <Route path="/drawer" element={<Drawer />} /> */}
@@ -137,6 +145,8 @@ function App() {
                 <Route path="loading" element={<Loading />} />
                 <Route path="pagenotfound" element={<PageNotFound />} />
               </Route>
+              {/* </--- Customer Routes */}
+
             </Routes>
           </BrowserRouter>
         </CartShoppingprovider>

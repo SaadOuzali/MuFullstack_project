@@ -59,6 +59,7 @@ const handleRequestError = (err) => {
   return new CustomError("Something went wrong! Re-try later.");
 };
 
+
 const LoginTemplate = () => {
   const { customer, setCustomer } = useContext(Customercontexte);
   const navigate = useNavigate();

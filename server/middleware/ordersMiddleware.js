@@ -28,16 +28,17 @@ async function createOrder(req, res, next) {
       status: "open", // Default status = open
       //   order_date: new Date(), // Order date
     });
-    if (!createOrder) {
-      res.status(400).json({
-        status: 400,
-        message: "cannot create order",
-      });
-      return;
-    }
+    // if (!createOrder) {
+    //   res.status(400).json({
+    //     status: 400,
+    //     message: "cannot create order",
+    //   });
+    //   return;
+    // }
     req.order = createOrder;
     next();
   } catch (err) {
+    console.log(err);
     const error = new Error(err.message);
     error.status = 500;
     next(error);

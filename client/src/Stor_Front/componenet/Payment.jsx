@@ -5,8 +5,10 @@ import { toast } from "react-toastify";
 import { useContext, useMemo } from "react";
 import { Shoppigncartcontexte } from "./contexte/CartShoppingContexte";
 import { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Payment() {
+  const navigate=useNavigate()
   const { cartItems, TotalPrice, initialState, setCartItems } =
     useContext(Shoppigncartcontexte);
   
@@ -16,7 +18,8 @@ export default function Payment() {
     });
   }, [cartItems]);
   console.log("payement", productid);
-  const handletocken = async (token) => {
+
+  const handletocken = async (TotalPrice,token) => {
     try {
       const data = await request.post("/v1/orders/", {
         token: token.id,
@@ -24,13 +27,15 @@ export default function Payment() {
         order_items: productid,
       });
       console.log(data);
-      if (data.status === 200) {
+      if (data.status === 201) {
         localStorage.removeItem("cartshopping");
         setCartItems(initialState());
         toast.success("order created successfully");
       }
     } catch (error) {
       if (error instanceof AxiosError) {
+        navigate("/home/login")
+        console.log(error);
         if (error.response.status === 500) {
           toast.error(
             error.response.data?.message ?? "Couldn't create product"
@@ -40,7 +45,8 @@ export default function Payment() {
     }
   };
   const tokenhandler = (token) => {
-    handletocken(100, token);
+    // console.log("payementtttt",token);
+    handletocken(TotalPrice, token);
   };
 
   return (

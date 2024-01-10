@@ -29,11 +29,13 @@ export default function PrivateRouteCustomer() {
             toast.error("your session expired login again");
             navigate("/home/login");
           }
-          console.log(error);
+          console.log(error.response);
         }
       }
     };
-    verifyToken();
+    if(!customer.iscustConnected){
+      verifyToken();
+    }
   }, []);
 
   return !customer.iscustConnected ? (

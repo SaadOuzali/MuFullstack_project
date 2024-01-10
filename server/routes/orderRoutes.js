@@ -38,12 +38,14 @@ orderRouter.post(
     // const {token,amount}=req.body;
     const { token, order_items, cart_total_price } = req.body;
     console.log("hnnnnaaaaaa", req.body.order_items);
+    console.log("custommerr",token);
     const idempotencyKey = uuid.v4();
     try {
       const customer = await stripe.customers.create({
         email: token.email,
         source: token,
       });
+      console.log('customer',customer);
       const result = await stripe.charges.create(
         {
           amount: cart_total_price * 100,
@@ -53,16 +55,19 @@ orderRouter.post(
         },
         { idempotencyKey }
       );
+      console.log('result',result);
 
-      res.status(200).send({ message: "Good", result });
+        next()
+      // res.status(200).send({ message: "Good", result });
     } catch (error) {
+      console.log("hnaaferr",error);
       const err = new Error(error.message);
       err.status = 500;
       next(err);
     }
   },
-  createOrder,
-  createController
+  // createOrder,
+  // createController
 );
 
 // for payement
